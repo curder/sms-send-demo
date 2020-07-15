@@ -10,29 +10,14 @@
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label text-right">Phone Number</label>
                                 <div class="col-sm-8">
-                                    <div class="row ">
-                                        <input type="input" name="phone" class="form-control" placeholder="your phone number">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="sms-code" class="col-sm-4 col-form-label text-right">Sms Code</label>
-                                <div class="col-sm-8">
-                                    <div class="row justify-content-center">
-                                        <input type="number" class="form-control col-sm-6" id="sms-code" placeholder="Sms code">
+                                     <div class="row justify-content-center">
+                                        <input type="number" v-model="form.phone" class="form-control col-sm-6" id="sms-code" placeholder="Sms code">
                                         <div class="col-sm-6">
-                                            <button type="button" class="btn btn-light mb-2 w-100">get sms</button>
+                                            <button type="button" @click="sendSms" class="btn btn-light mb-2 w-100">get sms</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="row form-group">
-                                <div class="col-sm-4"></div>
-                                <input type="button" value="submit" class="btn btn-primary mb-2" />
-                            </div>
-
                         </form>
                     </div>
                 </div>
@@ -42,9 +27,31 @@
 </template>
 
 <script>
-    export default {
-        mounted() {
+    import Form from 'form-backend-validation'
 
+    export default {
+        data() {
+            return {
+                form: new Form({
+                    phone: 13800138000,
+                })
+            }
+        },
+
+        methods: {
+            sendSms() {
+                if (!this.form.phone) {
+                    alert('give me your phone number.')
+                }
+
+                this.form.post('/api/sms')
+                    .then(response => {
+                        console.log(response)
+                    })
+                    .catch(response => {
+                        console.log(response)
+                    });
+            }
         }
     }
 </script>

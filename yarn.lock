@@ -1234,6 +1234,13 @@ autoprefixer@^9.4.2:
     postcss "^7.0.32"
     postcss-value-parser "^4.1.0"
 
+"axios@>=0.15 <1.0":
+  version "0.19.2"
+  resolved "https://registry.npm.taobao.org/axios/download/axios-0.19.2.tgz#3ea36c5d8818d0d5f8a8a97a6d36b86cdc00cb27"
+  integrity sha1-PqNsXYgY0NX4qKl6bTa4bNwAyyc=
+  dependencies:
+    follow-redirects "1.5.10"
+
 axios@^0.18:
   version "0.18.1"
   resolved "https://registry.npm.taobao.org/axios/download/axios-0.18.1.tgz#ff3f0de2e7b5d180e757ad98000f1081b87bcea3"
@@ -2897,6 +2904,15 @@ for-in@^1.0.2:
   version "1.0.2"
   resolved "https://registry.npm.taobao.org/for-in/download/for-in-1.0.2.tgz#81068d295a8142ec0ac726c6e2200c30fb6d5e80"
   integrity sha1-gQaNKVqBQuwKxybG4iAMMPttXoA=
+
+form-backend-validation@^2.3.9:
+  version "2.3.9"
+  resolved "https://registry.npm.taobao.org/form-backend-validation/download/form-backend-validation-2.3.9.tgz#6463b8d26e79f9c1d64daa2a102fb3ddfb0859a8"
+  integrity sha1-ZGO40m55+cHWTaoqEC+z3fsIWag=
+  dependencies:
+    prettier "^1.10.2"
+  optionalDependencies:
+    axios ">=0.15 <1.0"
 
 forwarded@~0.1.2:
   version "0.1.2"
@@ -5218,7 +5234,7 @@ postcss@^7.0.0, postcss@^7.0.1, postcss@^7.0.14, postcss@^7.0.27, postcss@^7.0.3
     source-map "^0.6.1"
     supports-color "^6.1.0"
 
-prettier@^1.18.2:
+prettier@^1.10.2, prettier@^1.18.2:
   version "1.19.1"
   resolved "https://registry.npm.taobao.org/prettier/download/prettier-1.19.1.tgz#f7d7f5ff8a9cd872a7be4ca142095956a60797cb"
   integrity sha1-99f1/4qc2HKnvkyhQglZVqYHl8s=

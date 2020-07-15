@@ -1,5 +1,6 @@
 <?php
 
+use Toplan\Sms\SmsManager;
 
 return [
     /*
@@ -14,7 +15,7 @@ return [
     'route' => [
         'enable'     => true,
         'prefix'     => 'laravel-sms',
-        'middleware' => ['web'],
+        'middleware' => ['api'],
     ],
 
     /*
@@ -41,7 +42,7 @@ return [
     |
     */
     'validation' => [
-        'mobile' => [
+        'phone' => [
             'isMobile'    => true,
             'enable'      => true,
             'default'     => 'mobile_required',
@@ -65,8 +66,8 @@ return [
     |
     */
     'code' => [
-        'length'        => 5,
-        'validMinutes'  => 5,
+        'length'        => 6,
+        'validMinutes'  => 10,
         'repeatIfValid' => false,
         'maxAttempts'   => 0,
     ],
@@ -105,6 +106,10 @@ return [
     |
     */
     'templates' => [
+        // aliyun 代理
+        'Aliyun' => SmsManager::closure(function ($input, $type) {
+            return config('laravel-sms.closure_config.sms_aliyun_template');
+        }),
     ],
 
     /*
@@ -129,12 +134,12 @@ return [
     |
     */
     'data' => [
-        'code' => function ($code) {
+        'code' => SmsManager::closure(function ($code) {
             return $code;
-        },
-        'minutes' => function ($code, $minutes) {
+        }),
+        'minutes' => SmsManager::closure(function ($code, $minutes) {
             return $minutes;
-        },
+        }),
     ],
 
     /*
@@ -171,7 +176,7 @@ return [
     | 运行'php artisan migrate'命令可以自动生成
     |
     */
-    'dbLogs' => false,
+    'dbLogs' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -202,5 +207,11 @@ return [
 
         // 语音验证码发送发送成功的提示
         'voice_sent_success' => '语音验证码发送成功，请注意接听',
+    ],
+
+       // 闭包中需要使用的变量
+    'closure_config' => [
+        // aliyun default template.
+        'sms_aliyun_template' => env('SMS_ALIYUN_TEMPLATE', ''), // default template
     ],
 ];

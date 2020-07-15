@@ -21,9 +21,7 @@ return [
      * 'Qcloud', 'Aliyun'
      *
      */
-    'scheme' => [
-        'Log',
-    ],
+    'scheme' => explode(',', env('SMS_SCHEMES', 'Log')),
 
     /*
      * The configuration
@@ -196,9 +194,9 @@ return [
          * support template sms.
          */
         'Aliyun' => [
-            'accessKeyId'       => 'your_access_key_id',
-            'accessKeySecret'   => 'your_access_key_secret',
-            'signName'          => 'your_sms_sign_name',
+            'accessKeyId'       => env('SMS_ALIYUN_ACCESS_KEY_ID'),
+            'accessKeySecret'   => env('SMS_ALIYUN_ACCESS_KEY_SECRET'),
+            'signName'          => env('SMS_ALIYUN_SIGN_NAME'),
             'regionId'          => 'cn-shenzhen',
         ],
     ],
