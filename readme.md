@@ -1,3 +1,10 @@
+## Dependencies
+
+- php ^7.1.3
+- [composer](https://getcomposer.org/download/) v1.10.8
+- node v10.16.3
+- mysql v5.7.29
+
 ## Download
 
 ```
