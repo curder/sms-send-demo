@@ -1,5 +1,5 @@
 <?php
-namespace Tests\Unit\Integration\Http\Controllers;
+namespace Tests\Feature\Integration\Http\Controllers;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
