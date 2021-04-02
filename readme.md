@@ -7,13 +7,13 @@
 
 ## Download
 
-```
+```bash
 git clone http://github.com/curder/sms-send-demo.git
 ```
 
 ## php and node dependencies
 
-```
+```bash
 composer install # install php dependencies
 
 yarn # install node dependencies
@@ -24,20 +24,20 @@ yarn prod # when production
 
 ## `.env` file
 
-```
+```bash
 cp .env.example .env
 ```
 
 ## project key
 
-```
+```bash
 php artisna key:generate
 ```
 
 ## change database config
 
 change your database config file `.env`, support MySQL or sqlite.
-```
+```dotenv
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
