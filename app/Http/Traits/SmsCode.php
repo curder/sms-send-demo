@@ -2,15 +2,8 @@
 
 namespace App\Http\Traits;
 
-use App\Enums\SmsSignatureEnum;
-use App\Type;
-use DB;
-use Illuminate\Support\Facades\Config;
-use PhpSms;
-use Illuminate\Support\Str;
-use Toplan\Sms\Facades\SmsManager;
 use App\Http\Requests\SmsVerifyRequest;
-use Illuminate\Support\Facades\Validator;
+use Toplan\Sms\Facades\SmsManager;
 
 /**
  * Trait SmsCode
@@ -29,17 +22,17 @@ trait SmsCode
     public function sendSmsCode(SmsVerifyRequest $request): \Illuminate\Http\JsonResponse
     {
         $result = SmsManager::validateSendable();
-        if (!$result['success']) {
+        if (! $result['success']) {
             return $this->formatResponseData($result);
         }
 
         $result = SmsManager::validateFields();
-        if (!$result['success']) {
+        if (! $result['success']) {
             return $this->formatResponseData($result);
         }
 
         $result = SmsManager::requestVerifySms();
-        if (!$result['success']) {
+        if (! $result['success']) {
             return $this->formatResponseData($result);
         }
 
@@ -55,6 +48,7 @@ trait SmsCode
             'phone.required' => __('register.phone_required'),
         ];
     }
+
     /**
      * @param $result
      *

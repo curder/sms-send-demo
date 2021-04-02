@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-
 use App\Rules\IsPhoneNumber;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -33,7 +32,7 @@ class SmsVerifyRequest extends FormRequest
         ];
     }
 
-      /**
+    /**
      * @return array
      */
     public function messages(): array

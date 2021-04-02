@@ -6,5 +6,4 @@ use App\Http\Traits\SmsCode;
 class SmsController extends Controller
 {
     use SmsCode;
-
 }
