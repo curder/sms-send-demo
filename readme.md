@@ -1,5 +1,8 @@
 ## Dependencies
 
+[![GitHub Tests Action Status](https://github.com/curder/sms-send-demo/actions/workflows/run-test.yml/badge.svg)](https://github.com/curder/sms-send-demo/actions?query=run-test%3Amaster)
+[![GitHub Code Style Action Status](https://github.com/curder/sms-send-demo/actions/workflows/php-cs-fixer.yml/badge.svg)](https://github.com/curder/sms-send-demo/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amaster)
+
 - php ^7.1.3
 - [composer](https://getcomposer.org/download/) v1.10.8
 - node v10.16.3
