@@ -21,4 +21,20 @@ class SmsControllerTest extends TestCase
                 'message' => config('laravel-sms.notifies.sms_sent_success'),
             ]);
     }
+
+    /** @test */
+    public function it_can_not_send_sms_when_phone_is_empty(): void
+    {
+        $response = $this->postJson('/api/sms', ['phone' => '']);
+
+        $response->assertJsonValidationErrors('phone');
+    }
+
+    /** @test */
+    public function it_can_not_send_sms_when_phone_is_invalid(): void
+    {
+        $response = $this->postJson('/api/sms', ['phone' => 126345678744111]);
+
+        $response->assertJsonValidationErrors('phone');
+    }
 }
