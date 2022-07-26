@@ -42,7 +42,7 @@ trait SmsCode
     /**
      * @return array
      */
-    protected function validateErrorMessages() : array
+    protected function validateErrorMessages(): array
     {
         return [
             'phone.required' => __('register.phone_required'),
@@ -54,7 +54,7 @@ trait SmsCode
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    protected function formatResponseData($result) : \Illuminate\Http\JsonResponse
+    protected function formatResponseData($result): \Illuminate\Http\JsonResponse
     {
         return response()->json([
             'message' => $result['message'],

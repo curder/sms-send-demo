@@ -1,4 +1,5 @@
 <?php
+
 namespace Tests\Feature\Integration\Http\Controllers;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -10,7 +11,7 @@ class SmsControllerTest extends TestCase
 
     /** @test */
     // 发送验证码
-    public function it_can_send_sms() : void
+    public function it_can_send_sms(): void
     {
         $response = $this->postJson('/api/sms', ['phone' => 13800138000]);
         $this->assertDatabaseHas('laravel_sms', [
