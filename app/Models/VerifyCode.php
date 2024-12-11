@@ -33,11 +33,11 @@ class VerifyCode extends Model
 
     public function expiredAt(): Attribute
     {
-        return Attribute::get(fn () => Carbon::parse(Arr::get($this, 'data.expireAt'))->format('Y-m-d H:i:s'));
+        return Attribute::get(fn () => Carbon::parse(Arr::get($this, 'data.expireAt'))->timezone(config('app.timezone'))->format('Y-m-d H:i:s'));
     }
 
     public function sentAt(): Attribute
     {
-        return Attribute::get(fn () => Carbon::parse(Arr::get($this, 'data.sentAt'))->format('Y-m-d H:i:s'));
+        return Attribute::get(fn () => Carbon::parse(Arr::get($this, 'data.sentAt'))->timezone(config('app.timezone'))->format('Y-m-d H:i:s'));
     }
 }
