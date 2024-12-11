@@ -68,7 +68,6 @@ return [
 
     'dblog' => true,
 
-
     'content' => '【signature】感谢您的申请，您的动态验证码%s，请在%s分钟内输入。',
 
     'storage' => \iBrand\Sms\Storage\CacheStorage::class,

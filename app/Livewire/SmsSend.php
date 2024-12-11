@@ -2,27 +2,30 @@
 
 namespace App\Livewire;
 
+use LogicException;
+use Livewire\Component;
+use Illuminate\Support\Str;
+use Livewire\Attributes\On;
 use App\Enums\EventTypeEnum;
+use iBrand\Sms\Facade as Sms;
+use Illuminate\Support\Sleep;
 use App\Enums\SmsSendTypeEnum;
 use App\Rules\ChinesePhoneNumber;
-use iBrand\Sms\Facade as Sms;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Sleep;
-use Illuminate\Support\Str;
-use Livewire\Attributes\On;
-use Livewire\Component;
-use Overtrue\EasySms\Support\Config;
 
 class SmsSend extends Component
 {
     public string $phone = '';
 
     public SmsSendTypeEnum $type;
+
     public int $initialSecond = 60; // countdown time
+
     public int $second = 60; // seconds left on countdown
+
     public bool $is_sent = false;
 
     public function mount(SmsSendTypeEnum $type): void
@@ -31,7 +34,6 @@ class SmsSend extends Component
         $this->decrease();
     }
 
-
     public function send(): void
     {
         Sleep::sleep(0.85);
@@ -39,27 +41,31 @@ class SmsSend extends Component
 
         if ($validator->fails()) {
             $this->dispatch(EventTypeEnum::SmsSendFailed->value, ['message' => $validator->errors()->first('phone')]);
+
             return;
         }
 
         // 0. 判断当前是否为发送状态
         $this->decrease();
 
-        if (!config('app.debug') && !Sms::verifyMobile($this->phone)) {
+        if (! config('app.debug') && ! Sms::verifyMobile($this->phone)) {
             $this->dispatch(EventTypeEnum::SmsSendFailed->value, ['message' => __('Invalid Phone')]);
             $this->is_sent = false;
+
             return;
         }
 
-        if (!Sms::canSend($this->phone)) {
+        if (! Sms::canSend($this->phone)) {
             $this->dispatch(EventTypeEnum::SmsSendFailed->value, ['message' => __('Limit Per Minute')]);
             $this->is_sent = false;
+
             return;
         }
 
-        if (!Sms::send(Str::start($this->phone, 86), $this->type->data(), $this->type->gateways())) {
+        if (! Sms::send(Str::start($this->phone, 86), $this->type->data(), $this->type->gateways())) {
             $this->dispatch(EventTypeEnum::SmsSendFailed->value, ['message' => __('Sent Phone Failed')]);
             $this->is_sent = false;
+
             return;
         }
 
@@ -112,6 +118,7 @@ class SmsSend extends Component
     {
         if (config('app.env') === 'testing') {
             Cache::put($this->getCacheKey(), true, $this->initialSecond);
+
             return;
         }
 
@@ -120,7 +127,6 @@ class SmsSend extends Component
 
     /**
      * 缓存key
-     * @return string
      */
     protected function getCacheKey(): string
     {
@@ -144,7 +150,7 @@ class SmsSend extends Component
                     'exists:users,phone',
                 ],
             ],
-            default => throw new \LogicException('Invalid Sms Type'),
+            default => throw new LogicException('Invalid Sms Type'),
         };
     }
 

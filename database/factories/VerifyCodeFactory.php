@@ -3,9 +3,9 @@
 namespace Database\Factories;
 
 use App\Models\VerifyCode;
-use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
+use Illuminate\Support\Carbon;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class VerifyCodeFactory extends Factory
 {
@@ -25,7 +25,7 @@ class VerifyCodeFactory extends Factory
 
     public function withDataColumn(): self
     {
-        return $this->state(fn(array $attributes) => [
+        return $this->state(fn (array $attributes) => [
             'data' => [
                 'to' => Str::start($attributes['mobile'], 86),
                 'code' => fake()->randomNumber(),
@@ -39,7 +39,7 @@ class VerifyCodeFactory extends Factory
 
     public function withResultColumn(): self
     {
-        return $this->state(fn(array $attributes) => [
+        return $this->state(fn (array $attributes) => [
             'result' => [
                 'errorlog' => [
                     'gateway' => 'errorlog',
@@ -48,8 +48,8 @@ class VerifyCodeFactory extends Factory
                     'result' => [
                         'status' => true,
                         'file' => storage_path('logs/laravel-sms.log'),
-                    ]
-                ]
+                    ],
+                ],
             ],
         ]);
     }

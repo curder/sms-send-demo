@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
+use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', '/register');
 

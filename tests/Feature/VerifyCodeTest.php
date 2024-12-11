@@ -12,6 +12,5 @@ test('verify-codes page is displayed', function () {
         ->assertSee($code->platform)
         ->assertSee($code->code)
         ->assertSee($code->expired_at)
-        ->assertSee($code->sent_at)
-    ;
+        ->assertSee($code->sent_at);
 });

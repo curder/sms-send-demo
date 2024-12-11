@@ -9,7 +9,6 @@ enum SmsSendTypeEnum: string
     case Register = 'register';
     case Login = 'login';
 
-
     public function template(): string
     {
         return match ($this) {
@@ -28,7 +27,7 @@ enum SmsSendTypeEnum: string
     public function gateways(): array
     {
         return app()->isProduction()
-            ? ['aliyunIntl' => new Config(config('ibrand.sms.easy_sms.gateways.aliyunIntl')),]
+            ? ['aliyunIntl' => new Config(config('ibrand.sms.easy_sms.gateways.aliyunIntl'))]
             : ['errorlog' => []];
     }
 }

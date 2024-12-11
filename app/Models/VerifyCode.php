@@ -3,16 +3,16 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Illuminate\Support\Arr;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Arr;
 
 class VerifyCode extends Model
 {
     use HasFactory;
 
-    protected $table ='sms_logs';
+    protected $table = 'sms_logs';
 
     protected function casts(): array
     {
@@ -21,6 +21,7 @@ class VerifyCode extends Model
             'result' => 'json',
         ];
     }
+
     public function code(): Attribute
     {
         return Attribute::get(fn () => Arr::get($this, 'data.code'));
