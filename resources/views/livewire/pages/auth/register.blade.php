@@ -45,7 +45,7 @@ new #[Layout('layouts.guest')] class extends Component {
         $validated = $this->validate();
 
         // Verify that the verification code is correct
-        if (!Sms::checkCode($this->phone, $this->verify_code)) {
+        if (!Sms::checkCode(Str::start($this->phone, 86), $this->verify_code)) {
             $this->addError('verify_code', __('Verify Code Invalid'));
             return;
         }

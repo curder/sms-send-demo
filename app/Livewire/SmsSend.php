@@ -59,7 +59,10 @@ class SmsSend extends Component
 
         if (!Sms::send(Str::start($this->phone, 86), [
             'template' => $this->type->template(),
-        ],['aliyunIntl' => new Config(config('ibrand.sms.easy_sms.gateways.aliyunIntl'))])) {
+        ],[
+            // 'aliyunIntl' => new Config(config('ibrand.sms.easy_sms.gateways.aliyunIntl'))
+            'errorlog' => new Config([])
+        ])) {
             $this->dispatch(EventTypeEnum::SmsSendFailed->value, ['message' => __('Sent Phone Failed')]);
             $this->is_sent = false;
             return;

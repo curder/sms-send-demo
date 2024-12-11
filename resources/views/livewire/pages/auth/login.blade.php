@@ -38,7 +38,7 @@ new #[Layout('layouts.guest')] class extends Component {
         $this->validate();
 
         // 校验验证码是否正确
-        if (!Sms::checkCode($this->phone, $this->verify_code)) {
+        if (!Sms::checkCode(Str::start($this->phone, 86), $this->verify_code)) {
             $this->addError('verify_code', __('Verify Code Invalid'));
             return;
         }
