@@ -56,7 +56,9 @@ class SmsSend extends Component
             return;
         }
 
-        if (!Sms::send(Str::start($this->phone, 86))) {
+        if (!Sms::send(Str::start($this->phone, 86), [
+            'template' => $this->type->template(),
+        ])) {
             $this->dispatch(EventTypeEnum::SmsSendFailed->value, ['message' => __('Sent Phone Failed')]);
             $this->is_sent = false;
             return;
