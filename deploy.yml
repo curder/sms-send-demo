@@ -1,0 +1,91 @@
+import:
+  - recipe/laravel.php
+  - contrib/php-fpm.php
+  - contrib/yarn.php
+  - contrib/rsync.php
+
+config:
+  application: sms.webfsd.com
+  git_ssh_command: ssh
+  repository: git@github.com:curder/sms-send-demo.git
+  update_code_strategy: clone
+  keep_releases: 5
+  default_timeout: 3600
+  remote_user: deployer
+  http_user: nginx
+  'bin/php': /usr/bin/php83
+  'bin/git': /usr/bin/git
+  'bin/yarn': '/bin/node18 ~/.nvm/versions/node/v16.13.0/bin/yarn'
+  'bin/composer': '{{bin/php}} /usr/local/bin/composer'
+  identity_file: ~/.ssh/id_rsa
+  base_deploy_path: '/var/www/codes/webfsd.com/{{ application }}'
+  php_fpm_version: 83
+  php_fpm_service: 'php{{php_fpm_version}}-php-fpm'
+  shared_dirs:
+    - storage
+  shared_files:
+    - .env
+  # Rsync config
+  rsync_src: .
+  rsync_dest: '{{release_path}}'
+  rsync:
+    exclude:
+      - '/.idea/'
+      - '.drone.yml'
+      - '.env*'
+      - '.phpunit.result.cache'
+      - 'deploy.yaml'
+      - 'storage/logs/laravel.log'
+      - 'storage/logs/laravel-sms.log'
+      - 'database/database.sqlite'
+      - '/vendor/'
+      - '/node_modules/'
+    include: [ ]
+    include-file: false
+    exclude-file: false
+    filter: [ ]
+    filter-file: false
+    filter-perdir: false
+    flags: rz
+    options: [ 'delete' ]
+    timeout: 3600
+
+hosts:
+  sms.webfsd.com:
+    hostname: sms.webfsd.com
+    branch: master
+    deploy_path: '{{base_deploy_path}}'
+
+tasks:
+  deploy:
+    - deploy:prepare
+    - deploy:vendors
+    - artisan:storage:link
+    - artisan:view:cache
+    - artisan:config:cache
+    - artisan:migrate
+    - yarn:install
+    - npm:run:prod
+    - deploy:publish
+  #    - php-fpm:reload
+  deploy:rsync:
+    - deploy:release
+    - rsync
+    - deploy:shared
+    - deploy:vendors
+    - deploy:writable
+    - artisan:storage:link
+    - artisan:view:cache
+    - artisan:config:cache
+    - artisan:migrate
+    - yarn:install
+    - npm:run:prod
+    - deploy:publish
+  #    - php-fpm:reload
+  npm:run:prod:
+    - run: 'cd {{release_path}} && {{bin/yarn}} build'
+  php-fpm:reload:
+    - run: 'sudo /sbin/service {{php_fpm_service}} reload'
+
+after:
+  deploy:failed: deploy:unlock
