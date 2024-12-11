@@ -14,6 +14,7 @@ use Illuminate\Support\Sleep;
 use Illuminate\Support\Str;
 use Livewire\Attributes\On;
 use Livewire\Component;
+use Overtrue\EasySms\Support\Config;
 
 class SmsSend extends Component
 {
@@ -58,7 +59,7 @@ class SmsSend extends Component
 
         if (!Sms::send(Str::start($this->phone, 86), [
             'template' => $this->type->template(),
-        ])) {
+        ],['aliyunIntl' => new Config(config('ibrand.sms.easy_sms.gateways.aliyunIntl'))])) {
             $this->dispatch(EventTypeEnum::SmsSendFailed->value, ['message' => __('Sent Phone Failed')]);
             $this->is_sent = false;
             return;

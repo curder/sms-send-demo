@@ -44,7 +44,7 @@ return [
                 'code_template_id' => 'SMS_802xxx',
             ],
 
-            'aliyunintl' => [
+            'aliyunIntl' => [
                 'access_key_id' => env('ALIYUN_INTL_ACCESS_KEY_ID'),
                 'access_key_secret' => env('ALIYUN_INTL_ACCESS_KEY_SECRET'),
                 'sign_name' => env('ALIYUN_INTL_SIGN_NAME'),
