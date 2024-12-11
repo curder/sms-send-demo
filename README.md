@@ -1,7 +1,7 @@
 ## Dependencies
 
-[![GitHub Tests Action Status](https://github.com/curder/sms-send-demo/actions/workflows/run-test.yml/badge.svg)](https://github.com/curder/sms-send-demo/actions?query=run-test%3Amaster)
-[![GitHub Code Style Action Status](https://github.com/curder/sms-send-demo/actions/workflows/php-cs-fixer.yml/badge.svg)](https://github.com/curder/sms-send-demo/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amaster)
+[![Test](https://github.com/curder/sms-send-demo/actions/workflows/run-test.yml/badge.svg)](https://github.com/curder/sms-send-demo/actions/workflows/run-test.yml)
+[![Check & fix styling](https://github.com/curder/sms-send-demo/actions/workflows/pint-fixer.yml/badge.svg)](https://github.com/curder/sms-send-demo/actions/workflows/pint-fixer.yml)
 
 - php ^8.2
 - [composer](https://getcomposer.org/download/) v1.10.20
