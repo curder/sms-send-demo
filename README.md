@@ -1,66 +1,74 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+## Dependencies
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+[![GitHub Tests Action Status](https://github.com/curder/sms-send-demo/actions/workflows/run-test.yml/badge.svg)](https://github.com/curder/sms-send-demo/actions?query=run-test%3Amaster)
+[![GitHub Code Style Action Status](https://github.com/curder/sms-send-demo/actions/workflows/php-cs-fixer.yml/badge.svg)](https://github.com/curder/sms-send-demo/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amaster)
 
-## About Laravel
+- php ^8.2
+- [composer](https://getcomposer.org/download/) v1.10.20
+- node v18.18.2
+- mysql v5.7.29 Or sqlite
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Download
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+```bash
+git clone http://github.com/curder/sms-send-demo.git
+```
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Install php and node dependencies
 
-## Learning Laravel
+```bash
+composer install # install php dependencies
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+yarn # install node dependencies
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+yarn prod # when production
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## `.env` file
 
-## Laravel Sponsors
+```bash
+cp .env.example .env
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Project key
 
-### Premium Partners
+```bash
+php artisna key:generate
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+## Change database config
 
-## Contributing
+change your database config file `.env`, support MySQL or sqlite.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```dotenv
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=homestead
+DB_USERNAME=homestead
+DB_PASSWORD=secret
+```
 
-## Code of Conduct
+## config sms service
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+change your sms service config file `.env`, support `aliyunintl`, `errorlog`.
 
-## Security Vulnerabilities
+```dotenv
+SMS_GATEWAY=aliyunintl
+ALIYUN_INTL_ACCESS_KEY_ID=your_access_key_id
+ALIYUN_INTL_ACCESS_KEY_SECRET=your_access_key_secret
+ALIYUN_INTL_SIGN_NAME=your_sign_name
+ALIYUN_INTL_TEMPLATE_CODE=your_template_code
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+aliyun intl access key、secret、template code and sign name can get from [aliyun docs](https://www.alibabacloud.com/help/en/sms/list-of-operations-by-function).
 
-## License
+also you can use `errorlog` gateway to test, it will log error message to `storage/logs/laravel-sms.log` file.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Test
+
+open your browser see `http://localhost/register`, fill your phone and click **获取验证码**, you can get a sms code from `http://localhost/verify-codes`.
+
+also you can get a response `{message: "短信验证码发送成功，请注意查收", success: true, type: "sms_sent_success"}`
+
+Please check the table contents of your database，you will see a record.

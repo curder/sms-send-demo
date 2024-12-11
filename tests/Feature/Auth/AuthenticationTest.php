@@ -12,11 +12,13 @@ test('login screen can be rendered', function () {
 });
 
 test('users can authenticate using the login screen', function () {
-    $user = User::factory()->create();
+    $user = User::factory()->create([
+        'phone' => '13800138000',
+    ]);
 
     $component = Volt::test('pages.auth.login')
-        ->set('form.email', $user->email)
-        ->set('form.password', 'password');
+        ->set('phone', $user->phone)
+        ->set('verify_code', 123456);
 
     $component->call('login');
 
@@ -31,8 +33,8 @@ test('users can not authenticate with invalid password', function () {
     $user = User::factory()->create();
 
     $component = Volt::test('pages.auth.login')
-        ->set('form.email', $user->email)
-        ->set('form.password', 'wrong-password');
+        ->set('phone', 13800138000)
+        ->set('verify_code', 123456);
 
     $component->call('login');
 

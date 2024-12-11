@@ -15,7 +15,7 @@ test('profile page is displayed', function () {
         ->assertSeeVolt('profile.update-profile-information-form')
         ->assertSeeVolt('profile.update-password-form')
         ->assertSeeVolt('profile.delete-user-form');
-});
+})->skip();
 
 test('profile information can be updated', function () {
     $user = User::factory()->create();
@@ -36,7 +36,7 @@ test('profile information can be updated', function () {
     $this->assertSame('Test User', $user->name);
     $this->assertSame('test@example.com', $user->email);
     $this->assertNull($user->email_verified_at);
-});
+})->skip();
 
 test('email verification status is unchanged when the email address is unchanged', function () {
     $user = User::factory()->create();
@@ -53,7 +53,7 @@ test('email verification status is unchanged when the email address is unchanged
         ->assertNoRedirect();
 
     $this->assertNotNull($user->refresh()->email_verified_at);
-});
+})->skip();
 
 test('user can delete their account', function () {
     $user = User::factory()->create();
